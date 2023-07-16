@@ -1,4 +1,4 @@
-FROM harbor.kengdie.xyz/k8s/library/ubuntu:22.04
+FROM ubuntu:22.04
 
 COPY sources.list /etc/apt/sources.list
 COPY init_code.py /init_code.py
