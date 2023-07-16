@@ -1,0 +1,26 @@
+version: '3'
+services:
+  code:
+    build: .
+    ports:
+      - "${CODE_HOST_PORT}:22"
+    volumes:
+      - "${DATA_DIR}/code:/code"
+    environment:
+      CODE_USERNAME: ${CODE_USERNAME}
+      CODE_PASSWORD: ${CODE_PASSWORD}
+    links:
+      - "mysql"
+      - "redis"
+  mysql:
+    image: harbor.kengdie.xyz/k8s/mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+    volumes:
+      - "${DATA_DIR}/mysql:/var/lib/mysql"
+  redis:
+    image: harbor.kengdie.xyz/k8s/redis:7
+    volumes:
+      - "${DATA_DIR}/redis:/data"
